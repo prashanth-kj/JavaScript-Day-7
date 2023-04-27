@@ -1,0 +1,57 @@
+<DOCTYPE html>
+    <html>
+         <head>
+             <title> Guvi_js day3</title>
+         </head>
+         <body>
+              <h1>hello</h1>
+              <h2>welcome to XMLHttpRequest in html</h2>
+           <script>
+               
+               const req= new XMLHttpRequest();
+               req.addEventListener("load",countriesData);
+               req.open("GET","https://restcountries.com/v3.1/all");
+               req.send();
+
+                 function countriesData()
+                 {
+                      let countries=(JSON.parse(this.responseText));
+                        //console.log(countries);
+
+     // a. Get all the countries from the Asia continent /region using the Filter function;
+                        let Asian =countries.filter((e)=>
+                        {
+                              if(e.region=="Asia")
+                               return true;
+                        })
+                        console.log(Asian);
+                         
+      // b. Get all the countries with a population of less than 2 lakhs using Filter function;
+
+                     let population= countries.filter((e)=>(e.population<200000));
+                     console.log(population);
+             
+        // c. Print the following details name, capital, flag using forEach function;             
+                    
+                  countries.forEach(e=> 
+                  console.log(`countries name:${e.name.common}  capital:${e.capital}  flag:${e.flag}`));
+
+       // d. Print the total population of countries using reduce function;
+                      let Total = countries.reduce((previousCountry,currentCountry)=>previousCountry+currentCountry.population,0)
+                    
+                       console.log("Total Population is:",Total)
+                      
+       // e. Print the country which uses US Dollars as currency;
+                    let currency = countries.filter((e)=>e.currencies == 'USD').map((e)=>e.name.common);
+                        console.log(currency);
+                                                              
+                  
+                    }                    
+
+               
+               
+
+              
+           </script>   
+         </body>
+    </html>
